@@ -1,0 +1,121 @@
+<template>
+  <div class="form-container">
+    <el-form
+      ref="studentForm"
+      :model="student"
+      label-position="left"
+      label-width="150px"
+      style="max-width: 500px;"
+    >
+      <el-form-item label="Name" prop="name">
+        <el-input
+          v-model="student.name"
+          :disabled="mode == 'show'"
+        />
+      </el-form-item>
+      <el-form-item label="Number" prop="number">
+        <el-input
+          v-model="student.number"
+          :disabled="mode == 'show'"
+        />
+      </el-form-item>
+      <el-form-item label="Total Credit" prop="total_credit">
+        <el-input-number
+          v-model="student.total_credit"
+          style="width:100%;"
+          :disabled="mode == 'show'"
+          controls-position="right"
+        />
+      </el-form-item>
+      <el-form-item label="Student Head" prop="student_head">
+        <el-input
+          v-model="student.student_head"
+          :disabled="mode == 'show'"
+        />
+      </el-form-item>
+      <el-form-item label="Email" prop="email">
+        <el-input
+          v-model="student.email"
+          type="email"
+          :disabled="mode == 'show'"
+        />
+      </el-form-item>
+      
+    </el-form>
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
+      <el-button @click="dismissDialog">
+        Cancel
+      </el-button>
+      <el-button
+        v-if="mode !== 'show'"
+        type="primary"
+        @click="handleSubmit"
+      >
+        Confirm
+      </el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import { showErrors } from '@/utils/helper.js'
+export default {
+  props: ['mode', 'student'],
+  data() {
+    return {
+      loading: true,
+      downloading: false,
+      errors: [],
+    };
+  },
+  methods: {
+    dismissDialog() {
+      this.$emit('dismissDialog');
+    },
+    async handleSubmit() {
+      this.errors = [];
+      let data = new FormData();
+      await data.append('image', this.student.image);
+      for (var key in this.student) {
+        data.append(key, this.student[key]);
+      }
+      console.log('data:', data, this.student);
+
+      if (this.student.id !== undefined) {
+        axios
+          .put('api/students/'+this.student.id, this.student)
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: 'Student info has been updated successfully',
+              duration: 5 * 1000,
+            });
+            this.dismissDialog();
+          })
+          .catch(error => {
+            console.log('error:', error);
+            showErrors(error);
+          });
+      } else {
+        axios
+          .post('api/students', data)
+          .then(response => {
+            this.$message({
+              message: 'New student ' + this.student.name + ' has been created successfully.',
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.dismissDialog();
+          })
+          .catch(error => {
+            showErrors(error);
+          });
+      }
+    },
+  }
+};
+</script>
