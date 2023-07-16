@@ -93,9 +93,6 @@ class RegisterController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended('/login/student');
-        }
-        // return back()->withInput($request->only('email', 'remember'));
+        return redirect()->intended('/login/student');
     }
 }

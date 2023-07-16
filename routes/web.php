@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return view('master');
-    } else {
-        return redirect('/login');
-    }
-});
 
 Auth::routes();
 
@@ -33,10 +26,9 @@ Route::post('/login/student', [App\Http\Controllers\Auth\LoginController::class,
 
 Route::get('/logged_in_user', [App\Http\Controllers\UserController::class, 'logged_in_user'])->name('logged_in_user');
 
-
 Route::get('/{any}', function () {
-    // dd(Auth::check());
-    if (Auth::check()) {
+    // dd(Auth::check(), Auth::guard('student')->check());
+    if (Auth::check() || Auth::guard('student')->check()) {
         return view('master');
     } else {
         return redirect('/login');

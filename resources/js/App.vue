@@ -51,6 +51,15 @@
                                 Semesters
                             </el-menu-item>
                         </router-link>
+                        <router-link to="/personal-info" style="text-decoration: none;"
+                                     :style="[$route.path === '/personal-info' ? {color: 'royalblue'} : {color: 'black'}]">
+                            <el-menu-item index="6">
+                                <el-icon :size="20" style="width: 1em; height: 1em; margin-right: 8px">
+                                    <Suitcase />
+                                </el-icon>
+                                Personal Info
+                            </el-menu-item>
+                        </router-link>
                     </el-menu>
                 </el-scrollbar>
             </el-aside>

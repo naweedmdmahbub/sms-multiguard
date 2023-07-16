@@ -87,7 +87,13 @@ class UserController extends Controller
 
     public function logged_in_user(Request $request)
     {
-        $logged_in_user = Auth::user();
+        $logged_in_user = null;
+        if(Auth::check() ){
+            $logged_in_user = Auth::user();
+        } else if(Auth::guard('student')->check()) {
+            $logged_in_user = Auth::guard('student')->user()->with('image')->first();
+            $logged_in_user['role'] = 'student';
+        }
         return response()->json($logged_in_user);
     }
 

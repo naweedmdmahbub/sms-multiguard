@@ -17,7 +17,9 @@
                 </el-icon>
                 <span style="vertical-align: middle"> Search </span>
             </el-button>
-            <el-button type="primary" @click="handleCreate">
+            <el-button type="primary" @click="handleCreate"
+                        v-if="logged_in_user && logged_in_user.role === 'admin'"
+            >
                 <span style="vertical-align: middle"> Add </span>
             </el-button>
         </div>
@@ -45,8 +47,8 @@
 
             <el-table-column prop="id" label="Operations" >
                 <template  #default="scope">
-                    <!-- v-if="logged_in_user && logged_in_user.role === 'admin'" -->
                     <el-icon :size="20" :color="'blue'"
+                            v-if="logged_in_user && logged_in_user.role === 'admin'"
                             style="width: 1em; height: 1em; margin-right: 8px"
                             @click="handleEdit(scope.row.id);"
                     >
@@ -59,12 +61,14 @@
                         <View />
                     </el-icon>
                     <el-icon :size="20" :color="'red'"
+                            v-if="logged_in_user && logged_in_user.role === 'admin'"
                             style="width: 1em; height: 1em; margin-right: 8px"
                             @click="handleDelete(scope.row.id, scope.row.name);"
                     >
                         <Delete />
                     </el-icon>
                     <el-icon :size="20" :color="'green'"
+                            v-if="logged_in_user && logged_in_user.role === 'admin'"
                             style="width: 1em; height: 1em; margin-right: 8px"
                             @click="handleAssign(scope.row.id);"
                     >

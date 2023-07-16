@@ -11,6 +11,7 @@ import SemesterList from './components/Semesters/List.vue';
 
 import NotFoundPage from './components/NotFoundPage.vue';
 import Dashboard from './components/Dashboard/index.vue';
+import PersonalInfo from './components/PersonalInfo.vue';
 
 const routes = [
     {
@@ -69,6 +70,13 @@ const routes = [
         name: 'SemesterList',
         component: SemesterList
     },
+    /** PersonalInfo */
+    {
+        path: '/personal-info',
+        name: 'PersonalInfo',
+        component: PersonalInfo
+    },
+    
     {
         path: '/:pathMatch(.*)*',
         component: NotFoundPage

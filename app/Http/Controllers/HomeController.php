@@ -6,6 +6,7 @@ use App\Models\Semester;
 use App\Models\Department;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // dd(Auth::check(), Auth::guard('student'));
+        // $this->middleware(['auth', 'auth:student']);
+        // $this->middleware('auth');
+        // $this->middleware(['auth']);
+        // $this->middleware('auth:student');
     }
 
     /**
