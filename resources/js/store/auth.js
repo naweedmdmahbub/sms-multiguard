@@ -25,6 +25,7 @@ export default {
     },
     actions:{
         login({commit}){
+            console.log('store/auth@login', state);
             return axios.get('/api/user').then(({data})=>{
                 commit('SET_USER',data)
                 commit('SET_AUTHENTICATED',true)

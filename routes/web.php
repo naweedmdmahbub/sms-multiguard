@@ -25,6 +25,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/register/student', [App\Http\Controllers\Auth\RegisterController::class, 'showStudentRegisterForm'])->name('register.student');
+Route::post('/register/student', [App\Http\Controllers\Auth\RegisterController::class, 'studentRegister']);
+Route::get('/login/student', [App\Http\Controllers\Auth\LoginController::class, 'showStudentLoginForm'])->name('login.student');
+Route::post('/login/student', [App\Http\Controllers\Auth\LoginController::class, 'studentLogin']);
+
+
 Route::get('/logged_in_user', [App\Http\Controllers\UserController::class, 'logged_in_user'])->name('logged_in_user');
 
 

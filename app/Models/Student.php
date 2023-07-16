@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Student extends Authenticatable
 {
     use HasFactory;
-    protected $guard_name = 'api';
+    protected $guard = 'student';
     protected $fillable = ['name', 'email', 'number', 'department_id', 'guardian_number', 'password'];
     public function image()
     {
