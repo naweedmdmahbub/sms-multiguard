@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Department;
+use App\Models\Student;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,17 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function getDashboardData()
+    {
+        $students = Student::count();
+        $departments = Department::count();
+        $department_students = Department::withCount('students')->get();
+        return [
+            'students' => $students,
+            'departments' => $departments,
+            'department_students' => $department_students,
+        ];
     }
 }

@@ -28,14 +28,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('role:Super-Admin')->group(function(){
-});
-
 Route::middleware('role:Admin')->group(function(){
 
 });
 
 
+Route::get('/get-dashboard-data', [App\Http\Controllers\HomeController::class, 'getDashboardData'])->name('home.getDashboardData');
 
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.list');
 Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
@@ -71,6 +69,7 @@ Route::delete('/permissions/delete/{id}',[RolePermissionController::class,'permi
 
 Route::apiResource('students', StudentController::class);
 Route::apiResource('departments', App\Http\Controllers\DepartmentController::class);
+Route::apiResource('students', App\Http\Controllers\StudentController::class);
 Route::get('semesters/students/{semester_id}', 'SemesterController@getStudents');
 Route::post('semesters/students/{semester_id}', 'SemesterController@assignStudents');
 Route::apiResource('semesters', 'SemesterController');

@@ -42,6 +42,18 @@
       </el-form-item>
       
     </el-form>
+    <!-- <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dismissDialog">Cancel</el-button>
+        <el-button 
+            v-if="mode !== 'show'"
+            type="primary" 
+            @click="handleSubmit"
+        >
+          Confirm
+        </el-button>
+      </span>
+    </template> -->
     <div
       slot="footer"
       class="dialog-footer"
@@ -78,13 +90,6 @@ export default {
     },
     async handleSubmit() {
       this.errors = [];
-      let data = new FormData();
-      await data.append('image', this.department.image);
-      for (var key in this.department) {
-        data.append(key, this.department[key]);
-      }
-      console.log('data:', data, this.department);
-
       if (this.department.id !== undefined) {
         axios
           .put('api/departments/'+this.department.id, this.department)
@@ -102,7 +107,7 @@ export default {
           });
       } else {
         axios
-          .post('api/departments', data)
+          .post('api/departments', this.department)
           .then(response => {
             this.$message({
               message: 'New department ' + this.department.name + ' has been created successfully.',

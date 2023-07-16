@@ -9,7 +9,7 @@ import DepartmentList from './components/Departments/List.vue';
 import StudentList from './components/Students/List.vue';
 
 import NotFoundPage from './components/NotFoundPage.vue';
-import Dashboard from './components/Dashboard.vue';
+import Dashboard from './components/Dashboard/index.vue';
 
 const routes = [
     {

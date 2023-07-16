@@ -91,7 +91,7 @@ class StudentController extends Controller
             $student = Student::find($id);
             DB::beginTransaction();
             $student->fill($input)->update();
-            dd($input, $request->all(), $request->hasFile('image'), $student->image);
+            // dd($input, $request->all(), $request->hasFile('image'), $student->image);
             //Only deleting image when new image is selected.
             // When no new image is selected, image remains the same, that means no delete option for image only.
             if($request->hasFile('image')){

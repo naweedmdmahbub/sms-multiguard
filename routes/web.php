@@ -25,9 +25,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/confirm_registration', [App\Http\Controllers\UserController::class, 'confirm_registration'])->name('confirm_registration');
-Route::post('/update_registration', [App\Http\Controllers\UserController::class, 'update_registration'])->name('update_registration');
-
 Route::get('/logged_in_user', [App\Http\Controllers\UserController::class, 'logged_in_user'])->name('logged_in_user');
 
 

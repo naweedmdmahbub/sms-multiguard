@@ -1,7 +1,6 @@
 
 <template>
     <div style="padding: 10px;">
-
         <h1>
             Student List
         </h1>
@@ -21,16 +20,6 @@
             <el-button type="primary" @click="handleCreate">
                 <span style="vertical-align: middle"> Add </span>
             </el-button>
-            
-            <!-- <el-button
-                class="filter-item"
-                style="margin-left: 10px;"
-                type="primary"
-                icon="el-icon-plus"
-                @click="handleCreate"
-            >
-                {{ $t('table.add') }}
-            </el-button> -->
         </div>
 
 
@@ -53,20 +42,20 @@
                 </template>
             </el-table-column>
 
+            <el-table-column prop="department_name" align="center" sortable label="Department">
+                <template #default="scope">
+                    <span>{{ scope.row.department_name }}</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="number" align="center" sortable label="Number">
                 <template #default="scope">
                     <span>{{ scope.row.number }}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column prop="total_credit" align="center" sortable label="Total Credit">
+            <el-table-column prop="guardian_number" align="center" sortable label="Guardian Number">
                 <template #default="scope">
-                    <span>{{ scope.row.total_credit }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column prop="student_head" align="center" sortable label="Student Head">
-                <template #default="scope">
-                    <span>{{ scope.row.student_head }}</span>
+                    <span>{{ scope.row.guardian_number }}</span>
                 </template>
             </el-table-column>
 
@@ -146,8 +135,9 @@ export default {
                 name: '',
                 email: '',
                 number: '',
-                total_credit: '',
-                student_head: '',
+                image: null,
+                guardian_number: '',
+                department_id: '',
             },
             query: {
                 page: 1,
@@ -175,8 +165,9 @@ export default {
                 name: '',
                 email: '',
                 number: '',
-                total_credit: '',
-                student_head: '',
+                image: null,
+                guardian_number: '',
+                department_id: '',
             };
             this.getList();
         },
@@ -209,8 +200,9 @@ export default {
                 name: '',
                 email: '',
                 number: '',
-                total_credit: '',
-                student_head: '',
+                image: null,
+                guardian_number: '',
+                department_id: '',
             };
             this.dialogFormVisible = true;
         },

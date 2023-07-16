@@ -4,6 +4,16 @@
             <el-aside width="200px">
                 <el-scrollbar>
                     <el-menu>
+                        <router-link to="/" style="text-decoration: none;"
+                                     :style="[$route.path === '/dashboard' ? {color: 'royalblue'} : {color: 'black'}]">
+                            <el-menu-item index="1">
+                                <!-- <el-icon><icon-menu /></el-icon> -->
+                                <el-icon :size="20" style="width: 1em; height: 1em; margin-right: 8px">
+                                    <User />
+                                </el-icon>
+                                Dashboard
+                            </el-menu-item>
+                        </router-link>
                         <router-link to="/users" style="text-decoration: none;"
                                      :style="[$route.path === '/users' ? {color: 'royalblue'} : {color: 'black'}]">
                             <el-menu-item index="2">
