@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Semester;
 use App\Models\Department;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -32,10 +34,12 @@ class HomeController extends Controller
         $students = Student::count();
         $departments = Department::count();
         $department_students = Department::withCount('students')->get();
+        $semester_students = Semester::withCount('students')->get();
         return [
             'students' => $students,
             'departments' => $departments,
             'department_students' => $department_students,
+            'semester_students' => $semester_students,
         ];
     }
 }

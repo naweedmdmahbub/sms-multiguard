@@ -7,6 +7,7 @@ import UserList from './components/Users/List.vue';
 
 import DepartmentList from './components/Departments/List.vue';
 import StudentList from './components/Students/List.vue';
+import SemesterList from './components/Semesters/List.vue';
 
 import NotFoundPage from './components/NotFoundPage.vue';
 import Dashboard from './components/Dashboard/index.vue';
@@ -61,6 +62,12 @@ const routes = [
         path: '/students',
         name: 'StudentList',
         component: StudentList
+    },
+    /** Student */
+    {
+        path: '/semesters',
+        name: 'SemesterList',
+        component: SemesterList
     },
     {
         path: '/:pathMatch(.*)*',

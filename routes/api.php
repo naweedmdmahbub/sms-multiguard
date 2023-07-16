@@ -70,6 +70,6 @@ Route::delete('/permissions/delete/{id}',[RolePermissionController::class,'permi
 Route::apiResource('students', StudentController::class);
 Route::apiResource('departments', App\Http\Controllers\DepartmentController::class);
 Route::apiResource('students', App\Http\Controllers\StudentController::class);
-Route::get('semesters/students/{semester_id}', 'SemesterController@getStudents');
-Route::post('semesters/students/{semester_id}', 'SemesterController@assignStudents');
-Route::apiResource('semesters', 'SemesterController');
+Route::get('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'getStudents']);
+Route::post('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'assignStudents']);
+Route::apiResource('semesters', App\Http\Controllers\SemesterController::class);
