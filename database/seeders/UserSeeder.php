@@ -32,19 +32,20 @@ class UserSeeder extends Seeder
                 'name' => $faker->firstName(),
                 'email' => $faker->email(),
                 'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'password' => Hash::make('123456'),
+                'role' => 'admin',
                 'remember_token' => Str::random(10),
             ]
         );
-        // User::query()->create(
-        //     [
-        //         'name' => 'ABC',
-        //         'email' => 'abc@gmail.com',
-        //         'email_verified_at' => now(),
-        //         'password' => Hash::make('123456'),
-        //         'role' => 'user',
-        //         'remember_token' => Str::random(10),
-        //     ]
-        // );
+        User::query()->create(
+            [
+                'name' => 'ABC',
+                'email' => 'abc@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'role' => 'admin',
+                'remember_token' => Str::random(10),
+            ]
+        );
     }
 }

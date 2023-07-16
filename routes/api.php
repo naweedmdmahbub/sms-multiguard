@@ -41,31 +41,6 @@ Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edi
 Route::post('/users/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('users.delete');
 
-// role permssion routes 
-Route::get('/roles/all',[RolePermissionController::class,'roleIndex']);
-Route::post('/roles/create',[RolePermissionController::class,'roleStore']);
-Route::get('/roles/edit/{id}',[RolePermissionController::class,'roleEdit']);
-Route::put('/roles/update/{id}',[RolePermissionController::class,'roleUpdate']);
-Route::delete('/roles/delete/{id}',[RolePermissionController::class,'roleDestroy']);
-
-Route::get('/permissions/all',[RolePermissionController::class,'permissionIndex']);
-Route::post('/permissions/create',[RolePermissionController::class,'permissionStore']);
-Route::delete('/permissions/delete/{id}',[RolePermissionController::class,'permissionDestroy']);
-
-
-
-
-
-// Route::apiResource('roles', 'RoleController')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
-// Route::apiResource('users', 'UserController')->middleware('permission:' . Acl::PERMISSION_USER_MANAGE);
-// Route::apiResource('permissions', 'PermissionController')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
-
-// Custom routes
-// Route::put('users/{user}', 'UserController@update');
-// Route::get('users/{user}/permissions', 'UserController@permissions')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
-// Route::put('users/{user}/permissions', 'UserController@updatePermissions')->middleware('permission:' .Acl::PERMISSION_PERMISSION_MANAGE);
-// Route::get('roles/{role}/permissions', 'RoleController@permissions')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
-
 
 Route::apiResource('students', StudentController::class);
 Route::apiResource('departments', App\Http\Controllers\DepartmentController::class);
