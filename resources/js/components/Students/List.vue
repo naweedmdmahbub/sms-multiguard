@@ -59,6 +59,17 @@
                 </template>
             </el-table-column>
 
+            <el-table-column prop="image" align="center" sortable label="Image">
+                <template #default="scope">
+                <img
+                    v-if="scope.row.image !==null"
+                    :src="'/uploads/students/' + scope.row.image.filename"
+                    width="100"
+                    height="100"
+                >
+                </template>
+            </el-table-column>
+
 
             <el-table-column prop="id" label="Operations" >
                 <template  #default="scope">
