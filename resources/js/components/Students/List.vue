@@ -144,9 +144,9 @@ export default {
                 limit: 10,
                 keyword: '',
             },
-            total: 10,
+            total: null,
             totalPages: null,
-            pageSize: 5,
+            pageSize: 10,
             errors: [],
         };
     },
@@ -184,9 +184,9 @@ export default {
                     then((res) => {
                         console.log('res:', res);
                         this.students = res.data.data;
-                        this.query.page = res.data.current_page;
-                        this.total = res.data.total;
-                        this.totalPages = Math.ceil(res.data.total / this.pageSize); // Calculate the total number of pages
+                        this.query.page = res.data.meta.current_page;
+                        this.total = res.data.meta.total;
+                        this.totalPages = Math.ceil(this.total / this.pageSize); // Calculate the total number of pages
                     });
             this.loading = false;
         },
