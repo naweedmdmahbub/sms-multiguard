@@ -111,7 +111,8 @@ export default {
         }
         // data.append(key, this.student[key]);
       }
-      console.log('data:', data, this.student);
+      console.log('data:', data);
+      console.log('this.student:', this.student);
       if (this.student.id !== undefined) {
         axios
           .put('api/students/'+this.student.id, this.student)
