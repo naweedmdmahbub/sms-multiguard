@@ -50,6 +50,8 @@ Route::post('/students/{id}', [App\Http\Controllers\StudentController::class, 'u
 Route::delete('/students/{id}', [App\Http\Controllers\StudentController::class, 'destroy'])->name('students.delete');
 Route::post('/students', [App\Http\Controllers\StudentController::class, 'store'])->name('students.store');
 
-Route::get('semesters/students/{semester_id}', 'SemesterController@getStudents');
-Route::post('semesters/students/{semester_id}', 'SemesterController@assignStudents');
-Route::apiResource('semesters', 'SemesterController');
+Route::post('/students', [App\Http\Controllers\StudentController::class, 'store'])->name('students.store');
+
+Route::get('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'getStudents']);
+Route::post('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'assignStudents']);
+Route::apiResource('semesters', App\Http\Controllers\SemesterController::class);
