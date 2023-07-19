@@ -1,4 +1,4 @@
-import { ElNotification } from 'element-plus'
+import { ElNotification, ElMessage } from 'element-plus'
 export function showErrors(error){
     const errors = error.response.data.errors;
     var offset = 0;
@@ -12,5 +12,12 @@ export function showErrors(error){
             offset: offset,
         });
         offset += 60;
+    });
+}
+export function showMessage(message, type, duration){
+    ElMessage({
+      message: message,
+      type: type,
+      duration: duration,
     });
 }
