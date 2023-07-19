@@ -39,8 +39,8 @@
           :disabled="mode == 'show'"
         />
       </el-form-item>
-      
-      
+
+
       <el-form-item label="Image" prop="image">
         <img v-if="student.image !==null && student.image.id"
             :src="'/uploads/students/' + student.image.filename"
@@ -71,13 +71,11 @@
 
 <script>
 import axios from 'axios';
-import { showErrors } from '@/utils/helper.js'
+import { showErrors, showMessage } from '@/utils/helper.js'
 export default {
   props: ['mode', 'student'],
   data() {
     return {
-      loading: true,
-      downloading: false,
       selectedDepartmentID: null,
       errors: [],
       departments: [],
@@ -87,12 +85,8 @@ export default {
   async mounted(){
     await axios.get('/api/departments').then((res) => {
       this.departments = res.data.data;
-      console.log('mounted', this.departments);
     });
     if (this.mode !== 'create'){
-      // axios.get('/api/student').then((res) =>){
-      //   this.student
-      // }
       this.selectedDepartmentID = this.student.department_id;
     }
   },
@@ -103,54 +97,45 @@ export default {
     async handleSubmit() {
       this.student.department_id = this.selectedDepartmentID;
       let data = new FormData();
-      await data.append('image', this.student.image);
+      let postUrl = 'api/students';
+      let message = 'New student ' + this.student.name + ' has been created successfully.';
+
       for (var key in this.student) {
-        if (key !== 'image') {
+        if (this.student[key]) { // Check if the value is truthy
           data.append(key, this.student[key]);
-        console.log('key:', key, 'this.student[key]:', this.student[key]);
+        } else if (this.student[key] === null) { // Check if the value is explicitly null
+          data.append(key, ''); // Set an empty string if the value is null
         }
-        // data.append(key, this.student[key]);
+        // console.log('key:', key, 'this.student[key]:', this.student[key]);
+      }
+      await data.append('image', this.student.image);
+      for (const pair of data.entries()) {
+        console.log(pair[0], pair[1]);
       }
       console.log('data:', data);
       console.log('this.student:', this.student);
-      if (this.student.id !== undefined) {
-        axios
-          .put('api/students/'+this.student.id, this.student)
-          .then(response => {
-            this.$message({
-              type: 'success',
-              message: 'Student info has been updated successfully',
-              duration: 5 * 1000,
-            });
-            this.dismissDialog();
-          })
-          .catch(error => {
-            console.log('error:', error);
-            showErrors(error);
-          });
-      } else {
-        axios
-          .post('api/students', data)
-          .then(response => {
-            this.$message({
-              message: 'New student ' + this.student.name + ' has been created successfully.',
-              type: 'success',
-              duration: 5 * 1000,
-            });
-            this.dismissDialog();
-          })
-          .catch(error => {
-            showErrors(error);
-          });
-      }
+
+      if (this.student.id) {
+        postUrl = 'api/students/'+this.student.id;
+        message = 'Student info has been updated successfully';
+      }      
+      console.log('postUrl:', postUrl);
+      axios
+        .post(postUrl, data)
+        .then(response => {
+          showMessage(message, 'success', 5*1000);
+          this.dismissDialog();
+        })
+        .catch(error => {
+          showErrors(error);
+        });
     },
     onFileChange(event){
         this.student.image = event.target.files[0];
         this.imageUrl = URL.createObjectURL(this.student.image);
-        console.log('onFileChange: ', event.target.files);
-        console.log('this.student.image: ', this.student.image);
-        console.log('imageUrl: ', this.imageUrl);
-        // this.imageUrl = event.target.files[0].name;
+        // console.log('onFileChange: ', event.target.files);
+        // console.log('this.student.image: ', this.student.image);
+        // console.log('imageUrl: ', this.imageUrl);
     },
   }
 };

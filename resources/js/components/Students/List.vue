@@ -165,7 +165,7 @@ export default {
         await axios.get(`/logged_in_user`).
                 then((res) => {
                     this.logged_in_user = res.data;
-                    console.log('logged_in_user:', this.logged_in_user);
+                    // console.log('logged_in_user:', this.logged_in_user);
                 });
         await this.getList();
     },
@@ -190,7 +190,7 @@ export default {
                 keyword: this.query.keyword,
                 page: this.query.page,
             }
-            console.log('params', params);
+            // console.log('params', params);
             await axios.get(`/api/students`, {params}).
                     then((res) => {
                         console.log('res:', res);
@@ -218,7 +218,6 @@ export default {
             this.dialogFormVisible = true;
         },
         handleEdit(id){
-            console.log('List in handleEdit', this.students);
             this.currentStudent = this.students.find(student => student.id === id);
             this.mode = 'edit';
             this.formTitle = 'Edit Student';

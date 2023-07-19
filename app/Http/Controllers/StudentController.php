@@ -50,7 +50,8 @@ class StudentController extends Controller
             DB::beginTransaction();
             $student = Student::create($input);
             if($request->hasFile('image')){
-                $filename = $request->image->getClientOriginalName();
+                $extension = $request->image->getClientOriginalExtension();
+                $filename = time() . '_' . $student->id . '.' . $extension;
                 $image_upload_path = public_path('\uploads\students');
                 $request->image->move($image_upload_path, $filename);
                 $this->createImage($filename,$student);
@@ -103,7 +104,8 @@ class StudentController extends Controller
                         $prev_image->delete();
                     }
                 }
-                $filename = $request->image->getClientOriginalName();
+                $extension = $request->image->getClientOriginalExtension();
+                $filename = time() . '_' . $student->id . '.' . $extension;
                 $image_upload_path = public_path('\uploads\students');
                 $request->image->move($image_upload_path, $filename);
                 $this->createImage($filename,$student);
