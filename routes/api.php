@@ -41,10 +41,15 @@ Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edi
 Route::post('/users/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('users.delete');
 
-
-Route::apiResource('students', StudentController::class);
 Route::apiResource('departments', App\Http\Controllers\DepartmentController::class);
-Route::apiResource('students', App\Http\Controllers\StudentController::class);
-Route::get('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'getStudents']);
-Route::post('semesters/students/{semester_id}', [App\Http\Controllers\SemesterController::class, 'assignStudents']);
-Route::apiResource('semesters', App\Http\Controllers\SemesterController::class);
+// Route::apiResource('students', App\Http\Controllers\StudentController::class);
+
+Route::get('/students', [App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
+Route::get('/students/{id}', [App\Http\Controllers\StudentController::class, 'show'])->name('students.show');
+Route::post('/students/{id}', [App\Http\Controllers\StudentController::class, 'update'])->name('students.update');
+Route::delete('/students/{id}', [App\Http\Controllers\StudentController::class, 'destroy'])->name('students.delete');
+Route::post('/students', [App\Http\Controllers\StudentController::class, 'store'])->name('students.store');
+
+Route::get('semesters/students/{semester_id}', 'SemesterController@getStudents');
+Route::post('semesters/students/{semester_id}', 'SemesterController@assignStudents');
+Route::apiResource('semesters', 'SemesterController');
